@@ -1,6 +1,8 @@
 package taller2;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class T205_TestAppEjemploIsael {
     private JTextArea textAreaRespuesta;
@@ -17,14 +19,34 @@ public class T205_TestAppEjemploIsael {
     private JButton buttonResta;
     private JButton buttonMultiplicacion;
     private JButton a0Button;
-    private JButton button1;
+    private JButton buttonIgual;
     private JPanel panel1;
+
+    public void interaccionCalculadora(){
+        a1Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textAreaRespuesta.setText("1");
+            }
+        });
+        a2Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textAreaRespuesta.setText("2");
+            }
+        });
+    }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         T205_TestAppEjemploIsael app = new T205_TestAppEjemploIsael();
 
         frame.add(app.panel1);
+        //-------------------------------------
+            app.interaccionCalculadora();
+        //-------------------------------------
+
+
 
         frame.setSize(300,300);
         frame.setLocation(710,290);

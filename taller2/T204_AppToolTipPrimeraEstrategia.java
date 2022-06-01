@@ -2,7 +2,7 @@ package taller2;
 
 import javax.swing.*;
 
-public class T204_AppToolTip {
+public class T204_AppToolTipPrimeraEstrategia {
     private JPanel panel1;
     private JTree tree1;
     private JTabbedPane tabbedPane1;
@@ -16,7 +16,7 @@ public class T204_AppToolTip {
     private JButton button4;
 
     public static void main(String[] args) {
-        T204_AppToolTip app = new T204_AppToolTip();
+        T204_AppToolTipPrimeraEstrategia app = new T204_AppToolTipPrimeraEstrategia();
         JFrame  frame = new JFrame();
         frame.add(app.panel1);
 
