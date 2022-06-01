@@ -1,4 +1,4 @@
-package taller2;
+package taller2a;
 
 import javax.swing.*;
 import java.awt.*;
