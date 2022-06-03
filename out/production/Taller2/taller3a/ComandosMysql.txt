@@ -1,0 +1,120 @@
+Taller numero 3a
+1) mysql --version --> para ver que vercion es;
+2) mysqld --initialize --user=mysql --console
+3) mysqld --init-file=C:\\mysql-8.0.29-winx64\\mysql-init.txt --console --> para inicializar la base de datos
+
+
+[INICIALIZAR MYSQL]
+
+> mysqld --initialize --user=mysql --console
+
+* No debe existir la carpeta data y deben haber permisos de escritura
+
+[REESTABLECER LA CONTRASEÑA]
+
+> mysqld --init-file=C:\\mysql-8.0.29-winx64\\mysql-init.txt --console
+
+* Debes crear el archivo `mysql-init.txt` con:
+
+	ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+
+[ENCENDER EL SERVIDOR DE MYSQL]
+
+> mysqld --console
+
+* No cerrar la terminal (el servidor funcionará mientras la ventana este abierta)
+
+[CONECTARSE AL SER
+[CONECTARSE AL SERVIDOR]
+
+> mysql -u root -p
+
+* En otra terminal puedes conectarte.
+
+***Nota:** Usa `--port=<12345>` si el puerto `3306` ya está ocupado en todos los comandos.
+
+
+https://third-hell-101.notion.site/Tutorial-JDBC-con-Java-77cef8ead9974482a9a38b82d0620153
+https://www.w3schools.com/mySQl/mysql_datatypes.asp
+
+
+
+exit --> salimos de la coneccion de la base de datos
+------------------------------------------------------------------------------------------------------------------------------------
+create databas test; --> crea bases de datos
+show databases; --> mostrar todas las bases de datos
+show tables; --> nos muestran las tablas que estan dentro de nuestra base de datos
+drop databases test; --> borra la base de dato
+droop table pruebas; --> estaria borrando la tabla que se encuentra en la base de datos
+use test; --> para usar la base de datos
+-----------------------------------------Creacion de tabla--------------------------------------------------------------------------
+pruebas
+--------
+id int primary key auto_incremet;
+nombre varchar(255) not null
+correo varchar(255) unique not null;
+
+SQL
+
+create tabla pruebas (
+    id int primary key auto_increment,
+    nombre varchar(255) not null
+    correo varchar(255) unique not null;
+);
+------------------------------------------------------------------------------------------------------------------------------------
+describe pruebas; --> para mostrar algo como lo siguiente
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| id     | int          | NO   | PRI | NULL    | auto_increment |
+| nombre | varchar(255) | NO   |     | NULL    |                |
+| correo | varchar(255) | NO   | UNI | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------Operaciones basicas sobre el registro--------------------------------------------
+
+Operaciones CRUD
+
+como incertar registros
+como seleccionar registros
+como actualizar registros
+como eliminar registros
+-----------------------------------------------------------------------------------------------------------------------------------
+insertar
+
+	insert into pruebas (nombre, correo) values ('Ana', 'ani@gmail.com'); --> para insertar valores
+
+-----------------------------------------------------------------------------------------------------------------------------------
+recuperar o consultar
+	select * from pruebas --> para poder trecuperar los valores que estan en la tabla
+	select id, correo from pruebas; --> regresa el id junto con los correos que estan en la tabla pruebas
+
+recuperar registros cuando se cumplan condiciones
+
+	--> select * from pruebas where correo like '%@hotmail.com'
+
+recuperar cuando se cumplan dos condiciones
+	--> select * from pruebas where correo like '%@hotmail.com' and id <=4 limit 1;
+
+recupera cuando se cumplan las condiciones y las regresa ordenadas
+	--> select * from pruebas where correo like '%@gmail.com' and id <= 4 order by correo desc;
+	--> select * from pruebas where correo like '%@gmail.com' and id <= 4 order by correo asc;
+	--> select * from pruebas order by nombre asc;
+	%@ cualquier texto antes de @gmail.com
+	%@% los que tenen una arroba
+-----------------------------------------------------------------------------------------------------------------------------------
+Actualiza el registro
+
+	update pruebas set nombre ='bety'; --> esto actualiza todos los campos a nombre bety
+	update pruebas set nombre ='Pepe' where id = 1;
+	update pruebas set nombre ='Ana' where id = 2;
+
+	update pruebas set nombre = 'An x' where like 'An%';
+
+Borrar el registro
+
+	delete from pruebas --> borra todo
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
