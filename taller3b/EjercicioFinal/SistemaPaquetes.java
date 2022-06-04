@@ -35,6 +35,5 @@ public class SistemaPaquetes {
         }else{
             throw new SQLException("No se pudo crear el Paquete");
         }
-
     }
 }
