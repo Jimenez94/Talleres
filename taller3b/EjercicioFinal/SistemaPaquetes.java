@@ -9,38 +9,51 @@ public class SistemaPaquetes {
     private Connection conn;//Coneccion global
     private Scanner scanner;
 
-    public SistemaPaquetes(Connection conn, Scanner scanner) throws SQLException {//constructor
+    public SistemaPaquetes(Connection conn, Scanner scanner) {//constructor
         this.conn = conn;
         this.scanner = scanner;
         this.instalarTablas();
     }
 
-    private void instalarTablas() throws SQLException {
+    private void instalarTablas() {
         instalarTablasPaquete();
         //todo Intalar las demas tablas
     }
 
-    private void instalarTablasPaquete() throws SQLException {
-        PreparedStatement preparedStatement = conn.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS Paquete (\n" +
-                        "  PaqueteID int NOT NULL AUTO_INCREMENT,\n" +
-                        "  Sku varchar(255) NOT NULL UNIQUE,\n" +
-                        "  Guia varchar(255),\n" +
-                        "  Activo bool,\n" +
-                        "  CreateAt timestamp NOT NULL DEFAULT now(),\n" +
-                        "  UpdateAt timestamp,\n" +
-                        "  PRIMARY KEY (PaqueteID)\n" +
-                        ")"
-        );
-        int resultado = preparedStatement.executeUpdate();
-        if (resultado == 0) {
+    private void instalarTablasPaquete()  {
+        PreparedStatement statement = null;
+        try {
+            statement = conn.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS Paquete (\n" +
+                            "  PaqueteID int NOT NULL AUTO_INCREMENT,\n" +
+                            "  Sku varchar(255) NOT NULL UNIQUE,\n" +
+                            "  Guia varchar(255),\n" +
+                            "  Activo bool,\n" +
+                            "  CreateAt timestamp NOT NULL DEFAULT now(),\n" +
+                            "  UpdateAt timestamp,\n" +
+                            "  PRIMARY KEY (PaqueteID)\n" +
+                            ")"
+            );
+        } catch (SQLException e) {
+            System.out.println("Hay un error en la sintaxis para crear la tabla paquete");
+            return;
+        }
+       boolean resultado = false;
+        try {
+            resultado = statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("fallo la creacion de la tabla paquete"+e.getMessage());
+            return;
+        }
+        if (resultado) {
             System.out.println("Se instalo la tabla Paquete");
         } else {
-            throw new SQLException("No se pudo crear el Paquete");
+            System.out.println("No se puedo crear la tabla Paquete");
         }
     }
 
-    public void abrirMenu() {
+    public void abrirMenu() throws SQLException {
         System.out.println("Menu de paquetes");
         System.out.println("--------------------------------------");
         System.out.println("1.- Registrar Paquetes");
@@ -56,15 +69,15 @@ public class SistemaPaquetes {
         seleccionarOpcion();
     }
 
-    private void seleccionarOpcion() {
+    private void seleccionarOpcion() throws SQLException {
         System.out.println("Opcion: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
 
-        SQLException(opcion);
+        seleccionarOpcion(opcion);
     }
 
-    public void seleccionarOpcion(int opcion) {
+    public void seleccionarOpcion(int opcion) throws SQLException {
         switch (opcion) {
             case 1:
                 registrarPaquete();
@@ -93,42 +106,72 @@ public class SistemaPaquetes {
         }
     }
 
-    private void hacerPausa(){
+    private void hacerPausa() throws SQLException {
         System.out.println("Pulsar ENTER para constinuar...");
         scanner.nextLine();
-        regresarALMenu();
+
     }
 
-    private void regresarALMenu(){
+    private void regresarALMenu() throws SQLException {
         hacerPausa();
         abrirMenu();
     }
 
-    public void registrarPaquete() {
+    public String solicitarSKU(){
+        System.out.println("Ingrese el SKU");
+        String sku = scanner.nextLine();
+        return sku;
+    }
+
+    public void insertarPaquete(String sku) {
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("INSERT INTO Paquete (sku) VALUES (?)");
+        } catch (SQLException e) {
+            System.out.println("Hay un error en la sintaxis al incertar el paquete: "+e.getMessage());
+            return;
+        }
+        try {
+            statement.setString(1,sku);//Remplazo de parametros
+        } catch (SQLException e) {
+            System.out.println("No se puede insertar el parametro sku en la consulta");
+            return;
+        }
+        try {
+            statement.execute(); //excute -> INSERT/CREATE | executeUpdate -> UPDATE/DELETE | executeQuery -> SELECT
+        } catch (SQLException e) {
+            System.out.println("El paquete ya existe");
+            //System.out.println("Error al ejecutar la consulta: "+e.getMessage());
+            return;
+        }
+        System.out.printf("El paquete con SKU: %s fue insertado.\n ",sku);
+    }
+
+    public void  registrarPaquete() throws SQLException {
         String sku = solicitarSKU();
         insertarPaquete(sku);
         regresarALMenu();
     }
 
-    public void asignarGuia() {
-        String sku = new solicitarSKU();
-        String aguia = solicitarGuia();
-        Paquete paquete = buscarPaquete(sku);
+    public void asignarGuia() throws SQLException {
+      //  String sku = new solicitarSKU();
+      //  String aguia = solicitarGuia();
+      //  Paquete paquete = buscarPaquete(sku);
         regresarALMenu();
 
     }
 
-    public void verPaquetes() {
+    public void verPaquetes() throws SQLException {
         //Todo: implementar
         regresarALMenu();
     }
 
-    public void activarDesactivarPaquete() {
+    public void activarDesactivarPaquete() throws SQLException {
         //todo: imlementar
         regresarALMenu();
     }
 
-    public void buscarPa1quete() {
+    public void buscarPa1quete() throws SQLException {
         //todo: imlementar
         regresarALMenu();
     }
@@ -139,12 +182,12 @@ public class SistemaPaquetes {
 
     }
 
-    public void verHistorialPaquete() {
+    public void verHistorialPaquete() throws SQLException {
         //todo: imlementar
         regresarALMenu();
     }
 
-    public void seleccionNoValida() {
+    public void seleccionNoValida() throws SQLException {
         //TODO: implementar
         System.out.println("La opcion no es valida");
         regresarALMenu();
