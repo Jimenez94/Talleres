@@ -9,7 +9,7 @@ public class SistemaPaquetes {
     private Connection conn;//Coneccion global
     private Scanner scanner;
 
-    public SistemaPaquetes(Connection conn,Scanner scanner) throws SQLException {//constructor
+    public SistemaPaquetes(Connection conn, Scanner scanner) throws SQLException {//constructor
         this.conn = conn;
         this.scanner = scanner;
         this.instalarTablas();
@@ -56,7 +56,7 @@ public class SistemaPaquetes {
         seleccionarOpcion();
     }
 
-    private void seleccionarOpcion(){
+    private void seleccionarOpcion() {
         System.out.println("Opcion: ");
         int opcion = scanner.nextInt();
         scanner.nextLine();
@@ -64,8 +64,8 @@ public class SistemaPaquetes {
         SQLException(opcion);
     }
 
-    public void seleccionarOpcion(int opcion){
-        switch (opcion){
+    public void seleccionarOpcion(int opcion) {
+        switch (opcion) {
             case 1:
                 registrarPaquete();
                 break;
@@ -76,7 +76,7 @@ public class SistemaPaquetes {
                 verPaquetes();
                 break;
             case 4:
-                buscarPa1quetes();
+                buscarPa1quete();
                 break;
             case 5:
                 activarDesactivarPaquete();
@@ -91,6 +91,63 @@ public class SistemaPaquetes {
                 seleccionNoValida();
                 break;
         }
+    }
+
+    private void hacerPausa(){
+        System.out.println("Pulsar ENTER para constinuar...");
+        scanner.nextLine();
+        regresarALMenu();
+    }
+
+    private void regresarALMenu(){
+        hacerPausa();
+        abrirMenu();
+    }
+
+    public void registrarPaquete() {
+        String sku = solicitarSKU();
+        insertarPaquete(sku);
+        regresarALMenu();
+    }
+
+    public void asignarGuia() {
+        String sku = new solicitarSKU();
+        String aguia = solicitarGuia();
+        Paquete paquete = buscarPaquete(sku);
+        regresarALMenu();
+
+    }
+
+    public void verPaquetes() {
+        //Todo: implementar
+        regresarALMenu();
+    }
+
+    public void activarDesactivarPaquete() {
+        //todo: imlementar
+        regresarALMenu();
+    }
+
+    public void buscarPa1quete() {
+        //todo: imlementar
+        regresarALMenu();
+    }
+
+    public void salir() {
+        //todo: imlementar
+        System.out.println("Gracias, fin del programa");
+
+    }
+
+    public void verHistorialPaquete() {
+        //todo: imlementar
+        regresarALMenu();
+    }
+
+    public void seleccionNoValida() {
+        //TODO: implementar
+        System.out.println("La opcion no es valida");
+        regresarALMenu();
     }
 
 
