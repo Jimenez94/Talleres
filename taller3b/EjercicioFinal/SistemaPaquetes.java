@@ -1,8 +1,6 @@
 package taller3b.EjercicioFinal;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class SistemaPaquetes {
@@ -20,7 +18,7 @@ public class SistemaPaquetes {
         //todo Intalar las demas tablas
     }
 
-    private void instalarTablasPaquete()  {
+    private void instalarTablasPaquete() {
         PreparedStatement statement = null;
         try {
             statement = conn.prepareStatement(
@@ -38,12 +36,12 @@ public class SistemaPaquetes {
             System.out.println("Hay un error en la sintaxis para crear la tabla paquete");
             return;
         }
-       boolean resultado = false;
+        boolean resultado = false;
         try {
             resultado = statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("fallo la creacion de la tabla paquete"+e.getMessage());
+            System.out.println("fallo la creacion de la tabla paquete" + e.getMessage());
             return;
         }
         if (resultado) {
@@ -117,7 +115,7 @@ public class SistemaPaquetes {
         abrirMenu();
     }
 
-    public String solicitarSKU(){
+    private String solicitarSKU() {
         System.out.println("Ingrese el SKU");
         String sku = scanner.nextLine();
         return sku;
@@ -128,11 +126,11 @@ public class SistemaPaquetes {
         try {
             statement = conn.prepareStatement("INSERT INTO Paquete (sku) VALUES (?)");
         } catch (SQLException e) {
-            System.out.println("Hay un error en la sintaxis al incertar el paquete: "+e.getMessage());
+            System.out.println("Hay un error en la sintaxis al incertar el paquete: " + e.getMessage());
             return;
         }
         try {
-            statement.setString(1,sku);//Remplazo de parametros
+            statement.setString(1, sku);//Remplazo de parametros
         } catch (SQLException e) {
             System.out.println("No se puede insertar el parametro sku en la consulta");
             return;
@@ -144,22 +142,84 @@ public class SistemaPaquetes {
             //System.out.println("Error al ejecutar la consulta: "+e.getMessage());
             return;
         }
-        System.out.printf("El paquete con SKU: %s fue insertado.\n ",sku);
+        System.out.printf("El paquete con SKU: %s fue insertado.\n ", sku);
     }
 
-    public void  registrarPaquete() throws SQLException {
+    public void registrarPaquete() throws SQLException {
         String sku = solicitarSKU();
         insertarPaquete(sku);
         regresarALMenu();
     }
 
+    private String solicitarGuia() {
+        System.out.println("Ingrese el guia");
+        String guia = scanner.nextLine();
+        return guia;
+    }
+
+    private Paquete buscarPaquetePorSku(String sku) {
+        PreparedStatement statement;
+        try {
+            statement = conn.prepareStatement("SELECT  * from paquete WHERE sku = ? LIMIT 1");
+        } catch (SQLException e) {
+            System.out.println("Hay un error en la sintaxis al buscar un producto por sku");
+            return null;
+        }
+        try {
+            statement.setString(1, sku);
+        } catch (SQLException e) {
+            System.out.println("No se puede ajustar el parametro SKU al buscar un producto por SKU");
+            return null;
+        }
+
+        ResultSet resultSet;
+
+        try {
+            resultSet = statement.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Fallo la busqueda por SKU");
+            return null;
+        }
+
+        try {
+            if (resultSet.next()){
+                int id = resultSet.getInt("PaqueteID");
+                String guia = resultSet.getString("Sku");
+                boolean ativo = resultSet.getBoolean("Activo");
+                Timestamp CreateAt = resultSet.getTimestamp("CreateAt");
+                Timestamp UpdateAt = resultSet.getTimestamp("CreateAt");
+
+                Paquete paquete = new Paquete(id,sku,guia,ativo,CreateAt,UpdateAt);
+
+                System.out.printf("Se encontro el paquete con SKU: %s\n",sku);
+                return paquete;
+            }else {
+                System.out.printf("No se encontro ningun producto con el SKU: %s\n",sku);
+                return null;
+            }
+        } catch (SQLException e) {
+            System.out.printf("No se encontro ningun producto con el SKU: %s [CON ERROR]\n",sku);
+            return null;
+        }
+
+    }
+    public void actualizarPaquete(Paquete paquete) throws SQLException {
+        paquete.setUpdateAt(new Timestamp(0));
+
+        PreparedStatement statement = conn.prepareStatement("UPDATE Paquete SET guia=?, updateAt=? WHERE id=?");
+    }
+
     public void asignarGuia() throws SQLException {
-      //  String sku = new solicitarSKU();
-      //  String aguia = solicitarGuia();
-      //  Paquete paquete = buscarPaquete(sku);
+        String sku = solicitarSKU();
+        String guia = solicitarGuia();
+        Paquete paquete = buscarPaquetePorSku(sku);
+
+        paquete.setGuia(guia);
+        actualizarPaquete(paquete);
         regresarALMenu();
 
     }
+
 
     public void verPaquetes() throws SQLException {
         //Todo: implementar
