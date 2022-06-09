@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class TestSistemaPaquetes {
     public static void main(String[] args)
@@ -24,6 +25,13 @@ public class TestSistemaPaquetes {
         Connection conn = DriverManager.getConnection(url + dbName, user, password);
         System.out.println("Conectado a la BD exitosamente");
 
-        SistemaPaquetes sistemaPaquetes = new SistemaPaquetes(conn);
+
+        Scanner scanner = new Scanner(System.in);
+        //se crea una instancia del sistema de paquetes
+        SistemaPaquetes sistemaPaquetes = new SistemaPaquetes(conn,scanner);
+        sistemaPaquetes.abrirMenu();
+
+        scanner.close();
+        conn.close();
     }
 }

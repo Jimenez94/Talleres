@@ -3,7 +3,7 @@ package taller3b;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
-public class TestIncercion {
+public class TestCreacionTabla {
     public static void main(String[] args)
             throws ClassNotFoundException, NoSuchMethodException,
             InvocationTargetException, InstantiationException,
@@ -34,14 +34,15 @@ public class TestIncercion {
                         ")"
         );
 
-        //ResultSet resultSet = statement.executeQuery();
-
-        //while (resultSet.next()){
-        //  System.out.println(resultSet.toString());
-        //}
+        /*ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()){
+          System.out.println(resultSet.toString());
+        }*/
 
         int codigo = statement.executeUpdate();
+
         System.out.println(codigo);
+
         conn.close();
         System.out.println("La base de datos ha cerrado exitosamente");
     }

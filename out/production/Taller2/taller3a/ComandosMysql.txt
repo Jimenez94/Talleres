@@ -24,7 +24,6 @@ Taller numero 3a
 
 * No cerrar la terminal (el servidor funcionará mientras la ventana este abierta)
 
-[CONECTARSE AL SER
 [CONECTARSE AL SERVIDOR]
 
 > mysql -u root -p
