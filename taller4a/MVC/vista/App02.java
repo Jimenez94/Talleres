@@ -33,9 +33,7 @@ public class App02 extends JFrame implements ILoginView{
 
     public static void main(String[] args) {
         App02 view = new App02();
-
         UsuariosDB modelo = new UsuariosDB();
-
         LoginControler controler = new LoginControler(view, modelo);
     }
 
@@ -51,7 +49,8 @@ public class App02 extends JFrame implements ILoginView{
 
     @Override
     public String getPasword() {
-        return this.passwordField1.getPassword().toString();
+        //return this.passwordField1.getPassword().toString();
+        return this.passwordField1.getText();
     }
 
     @Override
@@ -61,6 +60,6 @@ public class App02 extends JFrame implements ILoginView{
 
     @Override
     public void showErrorLogin(String mensage) {
-        JOptionPane.showMessageDialog(this.panel1, mensage, "Error al iniciar sesion :D", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this.panel1, mensage, "Error al iniciar sesion :c", JOptionPane.ERROR_MESSAGE);
     }
 }

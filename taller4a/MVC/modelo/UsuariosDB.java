@@ -3,11 +3,11 @@ package taller4a.MVC.modelo;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 
-public class UsuariosDB implements ILoginModel{
+public class UsuariosDB implements ILoginModel {
 
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/";
-    private String dbname = "inventario_ijs";
+    private String dbname = "ipn";
     private String user = "root";
     private String password = "1234";
 
@@ -36,21 +36,23 @@ public class UsuariosDB implements ILoginModel{
 
     @Override
     public boolean isValidUserAndPassword(String user, String password) {
-
+        //para ver si esta dentro de la base de datos
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement("SELECT * FROM usuarios when usuarios = ? and contraseña = ?");
+            statement = connection.prepareStatement("SELECT * FROM usuario where usuario = ? and contra = ?");
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         try {
-            statement.setString(1,user);
+            //ajueste del primer parametro
+            statement.setString(1, user);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         try {
+            //ajueste del segundo parametro
             statement.setString(2, password);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,6 +61,7 @@ public class UsuariosDB implements ILoginModel{
 
         ResultSet resultSet = null;
         try {
+            //si tiene algun resultado
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

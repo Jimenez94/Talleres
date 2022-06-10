@@ -1,0 +1,12 @@
+mysql -u root -p
+create database ipn
+use ipn
+create table usuario (id int primary key auto_increment,
+     usuario varchar(60) not null,
+     contra varchar(60) not null,
+     create_at timestamp not null default now(),
+     update_at timestamp);
+
+insert into usuario (usuario, contra) values ('pepe', '1234');
+
+select * from usuario;

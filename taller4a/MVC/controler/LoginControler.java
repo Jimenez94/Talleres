@@ -1,8 +1,10 @@
 package taller4a.MVC.controler;
 
 import taller4a.MVC.modelo.ILoginModel;
+import taller4a.MVC.vista.App02;
 import taller4a.MVC.vista.ILoginView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -27,7 +29,5 @@ public class LoginControler {
                 }
             }
         });
-
     }
-
 }
