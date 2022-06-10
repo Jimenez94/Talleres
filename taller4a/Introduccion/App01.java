@@ -1,4 +1,4 @@
-package taller4a;
+package taller4a.Introduccion;
 
 import javax.swing.*;
 
@@ -10,6 +10,9 @@ public class App01 {
     private  JFrame frame;
 
     public App01(){
+        createFrom();
+    }
+    private void createFrom(){
         frame = new JFrame();
         frame.add(panel1);
 
