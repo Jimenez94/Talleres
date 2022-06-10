@@ -1,0 +1,28 @@
+public class TestDB{
+    public static void main(String[] args){
+
+         String driver = "com.mysql.cj.jdbc.Driver";
+          String url = "jdbc:mysql://localhost:3306/";
+                 String dbName = "inventario_ijs";
+                 String user = "root";
+                 String password = "1234";
+
+                  Class.forName(driver).getConstructor().newInstance();
+
+                  Connection conn = DriverManager.getConnection(url + dbName, user, password);
+                  String sql = "insert into pruebas (nombre,fecha) values (?,?)";
+                  PreparedStatement statement = conn.prepareStatement(sql)
+
+                  statement.setString(1, "Prueba 1");
+                  statement.setTimestamp(2, new Date());
+
+                   if (statement.execute()){
+                    //ok
+                   }else{
+                   //error
+                   }
+                   conn.close();
+
+
+    }
+}
