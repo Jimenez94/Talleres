@@ -60,7 +60,7 @@ public class productoUI extends JFrame implements IAgregarProductoUI {
         try {
             return Double.parseDouble(textField2.getText());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(panel1, "No se puede obtener el precio", "Error en el precio", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(panel1, "No se puede obtener el precio", "Error en el precio", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
     }
@@ -86,6 +86,7 @@ public class productoUI extends JFrame implements IAgregarProductoUI {
         textArea1.setText("");
         textField2.setText("");
         spinner1.setValue(0);
+        textArea1.requestFocus();
     }
 
 
