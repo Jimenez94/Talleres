@@ -41,7 +41,7 @@ https://www.w3schools.com/mySQl/mysql_datatypes.asp
 exit --> salimos de la coneccion de la base de datos
 ------------------------------------------------------------------------------------------------------------------------------------
 create databas test; --> crea bases de datos
-show databases; --> mostrar todas las bases de datos
+mysql -u root -p; --> mostrar todas las bases de datos
 show tables; --> nos muestran las tablas que estan dentro de nuestra base de datos
 drop databases test; --> borra la base de dato
 droop table pruebas; --> estaria borrando la tabla que se encuentra en la base de datos

@@ -46,8 +46,6 @@ public class T205_TestAppEjemploIsael {
             app.interaccionCalculadora();
         //-------------------------------------
 
-
-
         frame.setSize(300,300);
         frame.setLocation(710,290);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

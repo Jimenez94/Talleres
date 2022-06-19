@@ -1,0 +1,25 @@
+Sockets Cliente <-> servidor
+Sockets Maquina A <-> Maquina B  -> Es lo que se va a ver
+
+RMI: REMOTE METHOD INVICATION
+    maquina foo(<)      //(Maquina A) podemos mandar a ejecutar un metodo con sus parametros y esta
+                        //va a transmitir sus datos a una maquina B
+                        //y el resultado de la maquina B se lo manda a la maquina A y
+                        //lo debuelve como si esta la ejecutara
+
+    maquinaA.foo(<parametros...>) --> maquinaB.foo(<parametros>)
+        maquinaB.foo(<parametros...>) --> maquinaA.foo(<parametros>)
+
+
+Serialisable  | JabaBeans
+
+Buscar java serialisable -> Todo lo que es serialisable lo podemos interpretar como Bytes
+                            //puede serializar automatimente tipos de datos primitivos
+
+
+todo: Tenemos que ver que como funciona la clase serialisable el cual implementa el
+
+InputStream y OutputStream
+
+
+Java EE
