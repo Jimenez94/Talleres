@@ -9,11 +9,12 @@ public class Test3 {
     public static void main(String[] args) throws SQLException, ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException,
             InstantiationException, IllegalAccessException {
-        String driver = "com.mysql.cj.jdbc.Driver"; // TODO: Coloca la cadena del Driver de MySQL
+        // TODO: Coloca la cadena del Driver de MySQL
+        String driver = "com.mysql.cj.jdbc.Driver";
 
         Class.forName(driver).getConstructor().newInstance();
-
         System.out.println("Driver cargado exitosamente");
+
         String url = "jdbc:mysql://localhost:3306/";
         String dbName = "fecha";
         String user = "root";
@@ -24,23 +25,8 @@ public class Test3 {
 
         String sql = "SELECT NOW() as Fechas";
         // TODO: Crea una instancia de PreparedStatement llamada `stament`
-        // NOTA: Usa la conexión `conn` para crearla y el query `sql`
-        //System.out.println("Ingresa una fecha");
-        //Scanner scanner = new Scanner(System.in);
-        //String fechaDeCreacion = scanner.nextLine();
-        //scanner.close();
-       // PreparedStatement stament = conn.prepareStatement(sql);
-        //stament.setString(1, fechaDeCreacion);
-        /*int resultado = stament.executeUpdate(); //ejecutamos la inserccion en la base de datos
-        System.out.println("El resultado es: " + resultado);
-        //ps = conn.prepareStatement(sql);
-        if (resultado > 1) {
-            System.out.println("Insercion exitosa");
-        } else {
-            System.out.println("La inserccion no es exitosa");
-        }*/
-
         PreparedStatement stament = conn.prepareStatement(sql);
+        // NOTA: Usa la conexión `conn` para crearla y el query `sql`
         ResultSet resultSet = stament.executeQuery();
         resultSet.next();
 

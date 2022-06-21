@@ -6,14 +6,16 @@ class Test1 {
     public static void main(String[] args) {
         // TODO: Crea una nueva instancia de la clase Scanner llamada `scanner`
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Dame tu edad: ");
-
-        int edad = scanner.nextInt();// TODO: Lee un entero desde la instancia `scanner`
-        scanner.delimiter();// TODO: Termina de leer la línea en la instancia `scanner`
-
-        System.out.printf("Tu edad es: %d\n", edad);
-
+        int edad = 0;// TODO: Lee un entero desde la instancia `scanner`
+        try {
+            edad = scanner.nextInt();
+            System.out.printf("Tu edad es: %d\n", edad);
+        } catch (Exception e) {
+            System.out.println("Error, no ingresas un numero:  " + e);
+        }
+        // TODO: Termina de leer la línea en la instancia `scanner`
+        scanner.delimiter();
         // TODO: Cierra la instancia `scanner`
         scanner.close();
     }
