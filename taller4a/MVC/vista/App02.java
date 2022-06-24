@@ -10,11 +10,12 @@ public class App02 extends JFrame implements ILoginView{
     private JPasswordField passwordField1;
     private JButton aceptarButton;
     private JPanel panel1;
+    private JButton agregarProductoButton;
 
 
     public App02(){
         super();
-        construirVentana(400,200);
+        construirVentana(400,400);
     }
 
     public void construirVentana(int width, int height){
@@ -51,6 +52,11 @@ public class App02 extends JFrame implements ILoginView{
     public String getPasword() {
         //return this.passwordField1.getPassword().toString();
         return this.passwordField1.getText();
+    }
+
+    @Override
+    public JButton agregarProducto() {
+        return this.agregarProductoButton;
     }
 
     @Override

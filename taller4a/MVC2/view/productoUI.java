@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
+import static java.lang.System.exit;
+
 public class productoUI extends JFrame implements IAgregarProductoUI {
     private JTextField textField1;
     private JTextArea textArea1;
@@ -45,15 +47,23 @@ public class productoUI extends JFrame implements IAgregarProductoUI {
 
     }
 
+
     @Override
     public String getNombre() {
+        if (textField1.getText().isEmpty() || textArea1.getText().isBlank()) {
+            JOptionPane.showMessageDialog(panel1, "Tienes que escribir un producto");
+        }
         return textField1.getText();
     }
 
     @Override
     public String getDescipcion() {
+        if (textArea1.getText().isEmpty() || textArea1.getText().isBlank()) {
+            JOptionPane.showMessageDialog(panel1, "Tienes que escribir una descripcion");
+        }
         return textArea1.getText();
     }
+
 
     @Override
     public double getPrecio() {

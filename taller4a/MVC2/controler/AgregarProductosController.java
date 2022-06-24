@@ -3,8 +3,6 @@ package taller4a.MVC2.controler;
 import taller4a.MVC2.model.IAgregarProdutoModel;
 import taller4a.MVC2.view.IAgregarProductoUI;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class AgregarProductosController {
     private IAgregarProdutoModel model;
@@ -25,7 +23,7 @@ public class AgregarProductosController {
         double precio = view.getPrecio();
         int existencias = view.getExistencias();
 
-        if (nombre.isEmpty() || nombre.isEmpty()) {// si el nombre esta empleado o si esta en blanco
+        if (nombre.isEmpty() || nombre.isBlank()) {// si el nombre esta empleado o si esta en blanco
             view.mostrarAgregarProductoError("El nombre esta vacio");
             return;
         }

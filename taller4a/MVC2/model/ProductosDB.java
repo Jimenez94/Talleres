@@ -30,9 +30,9 @@ public class ProductosDB implements IAgregarProdutoModel{
             statement.setDouble(3, precio);
             statement.setInt(4, existencias);
 
-            if(statement.execute()){
+            if(statement.execute()){//execute regresa -> true si falla
                 System.out.println("Surgio un error en la ejecucion");
-                statement.close();
+                 statement.close();
                 return false;
             }else{
                 System.out.println("Todo salio bien en la ejecucion");
