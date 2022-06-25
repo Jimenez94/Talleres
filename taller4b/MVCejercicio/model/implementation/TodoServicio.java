@@ -18,27 +18,10 @@ public class TodoServicio implements IExtracionTodos {
 
     private Connection connection = null;
 
-    public TodoServicio() {
-        try {
-            Class.forName(driver).getConstructor().newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    public TodoServicio() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, SQLException {
 
-        try {
+            Class.forName(driver).getConstructor().newInstance();
             connection = DriverManager.getConnection(url + dbname, user, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Ingrese a la base de datos");
 
     }
 
