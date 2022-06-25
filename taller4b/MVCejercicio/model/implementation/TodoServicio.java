@@ -44,7 +44,7 @@ public class TodoServicio implements IExtracionTodos {
 
     @Override
     public List<Todos> getTodos() {
-        PreparedStatement statement;
+        PreparedStatement statement=null;
         try {
             statement = connection.prepareStatement("slect * from todos");
         } catch (SQLException e) {
