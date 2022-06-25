@@ -1,9 +1,14 @@
-package taller4a.MVC.modelo;
+package taller4b.MVCejercicio.model.implementation;
+
+import taller4b.MVCejercicio.entidades.Todos;
+import taller4b.MVCejercicio.model.IExtracionTodos;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UsuariosDB implements ILoginModel {
+public class TodoServicio implements IExtracionTodos {
 
     private String driver = "com.mysql.cj.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/";
@@ -13,7 +18,7 @@ public class UsuariosDB implements ILoginModel {
 
     private Connection connection = null;
 
-    public UsuariosDB() {
+    public TodoServicio() {
         try {
             Class.forName(driver).getConstructor().newInstance();
         } catch (InstantiationException e) {
@@ -27,55 +32,51 @@ public class UsuariosDB implements ILoginModel {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         try {
             connection = DriverManager.getConnection(url + dbname, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Ingrese a la base de datos");
 
     }
 
     @Override
-    public boolean isValidUserAndPassword(String user, String password) {
-        //para ver si esta dentro de la base de datos
-        PreparedStatement statement = null;
+    public List<Todos> getTodos() {
+        PreparedStatement statement;
         try {
-            statement = connection.prepareStatement("SELECT * FROM usuario where usuario = ? and contra = ?");
+            statement = connection.prepareStatement("slect * from todos");
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
-        }
-        try {
-            //ajueste del primer parametro
-            statement.setString(1, user);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        try {
-            //ajueste del segundo parametro
-            statement.setString(2, password);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            return new ArrayList<>();
         }
 
-        ResultSet resultSet = null;
+        ResultSet resultSet;
+
         try {
-            //si tiene algun resultado
             resultSet = statement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return new ArrayList<>();
         }
+
+        List<Todos> todos = new ArrayList<>();
         try {
-            return resultSet.next();
+            while (resultSet.next()) {
+                Todos todo = new Todos(
+                        resultSet.getInt("id"),
+                        resultSet.getString("titulo"),
+                        resultSet.getBoolean("completado"),
+                        resultSet.getTimestamp("creado"),
+                        resultSet.getTimestamp("modificado")
+                );
+                todos.add(todo);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return todos;
         }
-
-
+        return todos;
     }
 }
