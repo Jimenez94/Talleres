@@ -20,14 +20,15 @@ public class TodoServicio implements IExtracionTodos {
 
     public TodoServicio() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, SQLException {
 
-            Class.forName(driver).getConstructor().newInstance();
-            connection = DriverManager.getConnection(url + dbname, user, password);
+        Class.forName(driver).getConstructor().newInstance();
+        connection = DriverManager.getConnection(url + dbname, user, password);
+        System.out.println("Conectado a la BD exitosamente");
 
     }
 
     @Override
     public List<Todos> getTodos() {
-        PreparedStatement statement=null;
+        PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement("slect * from todos");
         } catch (SQLException e) {

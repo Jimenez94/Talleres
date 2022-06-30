@@ -46,4 +46,8 @@ public class TodoUI implements IVisualizacionTodos {
         }
         panelTodos.updateUI();
     }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
